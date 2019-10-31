@@ -1,0 +1,54 @@
+# sound_outer CMake config file
+#
+# This file sets the following variables:
+# sound_outer_FOUND - Always TRUE.
+# sound_outer_INCLUDE_DIRS - Directories containing the sound_outer include files.
+# sound_outer_IDL_DIRS - Directories containing the sound_outer IDL files.
+# sound_outer_LIBRARIES - Libraries needed to use sound_outer.
+# sound_outer_DEFINITIONS - Compiler flags for sound_outer.
+# sound_outer_VERSION - The version of sound_outer found.
+# sound_outer_VERSION_MAJOR - The major version of sound_outer found.
+# sound_outer_VERSION_MINOR - The minor version of sound_outer found.
+# sound_outer_VERSION_REVISION - The revision version of sound_outer found.
+# sound_outer_VERSION_CANDIDATE - The candidate version of sound_outer found.
+
+message(STATUS "Found sound_outer-@PROJECT_VERSION@")
+set(sound_outer_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(sound_outer_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(sound_outer_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(sound_outer_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(sound_outer_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(sound_outer_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(sound_outer_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(sound_outer_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(sound_outer_VERSION @PROJECT_VERSION@)
+set(sound_outer_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(sound_outer_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(sound_outer_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(sound_outer_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
