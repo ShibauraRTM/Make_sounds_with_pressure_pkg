@@ -4,6 +4,10 @@
  * @brief Standalone component
  * @date $Date$
  *
+ * @author 白井哲平<shibaurartm@gmail.com>
+ *
+ * ありません
+ *
  * $Id$
  */
 

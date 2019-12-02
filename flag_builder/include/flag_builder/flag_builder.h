@@ -1,8 +1,12 @@
 ﻿// -*- C++ -*-
 /*!
  * @file  flag_builder.h
- * @brief ModuleDescription
+ * @brief calculate a inclination, convert a proportion and output a proportion. 
  * @date  $Date$
+ *
+ * @author 白井哲平<shibaurartm@gmail.com>
+ *
+ * ありません
  *
  * $Id$
  */
@@ -39,7 +43,17 @@ using namespace RTC;
 
 /*!
  * @class flag_builder
- * @brief ModuleDescription
+ * @brief calculate a inclination, convert a proportion and output a proportion. 
+ *
+ * 数値を受け取り、その数値が閾値を超えると閾値を超えた時の数値の上
+ * 昇度(傾き)を計算する。この上昇度(傾き)を三角関数におけるtanとし
+ * 、これをsinに変換することで上昇度の大きさを0～1の値にして出力す
+ * る。
+ *
+ * 入力：数値
+ * 出力：0～1の数値
+ *
+ * なし
  *
  */
 class flag_builder
@@ -140,6 +154,9 @@ class flag_builder
    virtual RTC::ReturnCode_t onDeactivated(RTC::UniqueId ec_id);
 
   /***
+   * InPortの値がFlag(閾値)を越えた時、dt(コンフィギュレーション)秒
+   * における値の上昇度(傾き)を求める。この上昇度を三角関数のtanと
+   * し、sinに変換し0～1の値を出力する。
    *
    * The execution action that is invoked periodically
    * former rtc_active_do()
@@ -230,11 +247,11 @@ class flag_builder
   // Configuration variable declaration
   // <rtc-template block="config_declare">
   /*!
-   * 
-   * - Name:  Denominator
-   * - DefaultValue: 10000
+   * 何秒間の数値の上昇度(傾き)を求めるかを決める。
+   * - Name: dt dt
+   * - DefaultValue: 0.5
    */
-  double m_Denominator;
+  double m_dt;
   /*!
    * 
    * - Name:  Flag
@@ -248,6 +265,8 @@ class flag_builder
   // <rtc-template block="inport_declare">
   RTC::TimedDouble m_DataIn;
   /*!
+   * 数値を受け取る
+   * - Type: RTC::TimedDouble
    */
   InPort<RTC::TimedDouble> m_DataInIn;
   
@@ -258,6 +277,9 @@ class flag_builder
   // <rtc-template block="outport_declare">
   RTC::TimedDouble m_DataOut;
   /*!
+   * InPortの数値がFlag(閾値)を越えた時、数値の上昇度(傾き)を求め、
+   * その上昇度の大きさを0～1の値で表現し出力する。
+   * - Type: RTC::TimedDouble
    */
   OutPort<RTC::TimedDouble> m_DataOutOut;
   
@@ -280,7 +302,9 @@ class flag_builder
 
  private:
   // <rtc-template block="private_attribute">
-	 int flag = 0;
+	 int flag;
+	 double y1;
+	 double nowtime;
   // </rtc-template>
 
   // <rtc-template block="private_operation">

@@ -106,7 +106,7 @@ The available configuration parameters are described below:
 ================ ================== ================ ======
 Parameter        Data type          Default Value    Effect
 ================ ================== ================ ======
-dt               double             0.5              何秒間の数値の上昇度(傾き)を求めるかを決める。
+Denominator      double             10000            
 Flag             double             5000             
 ================ ================== ================ ======
 
@@ -118,8 +118,8 @@ The ports provided by the component are described below:
 =============== =========== ============================== =======
 Name            Type        Data type                      Purpose
 =============== =========== ============================== =======
-DataIn          InPort      RTC::TimedDouble               数値を受け取る
-DataOut         OutPort     RTC::TimedDouble               InPortの数値がFlag(閾値)を越えた時、数値の上昇度(傾き)を求め、その上昇度の大きさを0～1の値で表現し出力する。
+DataIn          InPort      RTC::TimedDouble               
+DataOut         OutPort     RTC::TimedDouble               
 =============== =========== ============================== =======
 
 Examples

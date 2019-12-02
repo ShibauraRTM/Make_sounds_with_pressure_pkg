@@ -1,12 +1,8 @@
 ﻿// -*- C++ -*-
 /*!
  * @file  flag_builderTest.cpp
- * @brief calculate a inclination, convert a proportion and output a proportion. 
+ * @brief ModuleDescription
  * @date $Date$
- *
- * @author 白井哲平<shibaurartm@gmail.com>
- *
- * ありません
  *
  * $Id$
  */
@@ -19,7 +15,7 @@ static const char* flag_builder_spec[] =
   {
     "implementation_id", "flag_builderTest",
     "type_name",         "flag_builderTest",
-    "description",       "calculate a inclination, convert a proportion and output a proportion. ",
+    "description",       "ModuleDescription",
     "version",           "1.0.0",
     "vendor",            "shirai",
     "category",          "Category",
@@ -29,15 +25,15 @@ static const char* flag_builder_spec[] =
     "language",          "C++",
     "lang_type",         "compile",
     // Configuration variables
-    "conf.default.dt", "0.5",
+    "conf.default.Denominator", "10000",
     "conf.default.Flag", "5000",
 
     // Widget
-    "conf.__widget__.dt", "text",
+    "conf.__widget__.Denominator", "text",
     "conf.__widget__.Flag", "text",
     // Constraints
 
-    "conf.__type__.dt", "double",
+    "conf.__type__.Denominator", "double",
     "conf.__type__.Flag", "double",
 
     ""
@@ -87,7 +83,7 @@ RTC::ReturnCode_t flag_builderTest::onInitialize()
 
   // <rtc-template block="bind_config">
   // Bind variables and configuration variable
-  bindParameter("dt", m_dt, "0.5");
+  bindParameter("Denominator", m_Denominator, "10000");
   bindParameter("Flag", m_Flag, "5000");
   // </rtc-template>
   
@@ -127,11 +123,6 @@ RTC::ReturnCode_t flag_builderTest::onDeactivated(RTC::UniqueId ec_id)
   return RTC::RTC_OK;
 }
 
-/*!
- * InPortの値がFlag(閾値)を越えた時、dt(コンフィギュレーション)秒に
- * おける値の上昇度(傾き)を求める。この上昇度を三角関数のtanとし、
- * sinに変換し0～1の値を出力する。
- */
 
 RTC::ReturnCode_t flag_builderTest::onExecute(RTC::UniqueId ec_id)
 {
